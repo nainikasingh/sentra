@@ -25,7 +25,9 @@ sentra/
 # Run cli.py
 
 > Discover self IP address
+
 > Identify CIDR & network range
+
 > Automatically starts searching for live hosts
+
 > Run Nmap scan against live hosts to find active/hidden ports
- 
