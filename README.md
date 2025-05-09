@@ -3,7 +3,8 @@ Sentra is an open-source, AI-augmented internal network auditing tool designed t
 
 # Use script.sh to create environment
 
-```sentra/
+```
+sentra/
 ├── cli.py
 ├── config
 │   └── settings.py
