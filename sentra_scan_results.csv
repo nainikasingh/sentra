@@ -1,0 +1,4 @@
+IP,Port,Protocol,State,Service,Risk,Notes
+192.168.1.1,53,tcp,open,domain,Unknown,DOMAIN detected
+192.168.1.1,80,tcp,open,http,Medium,HTTP detected
+192.168.1.1,1900,tcp,open,upnp,Unknown,UPNP detected
