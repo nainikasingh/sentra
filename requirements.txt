@@ -3,3 +3,4 @@ netifaces>=0.11.0
 ipaddress; python_version < "3.3"
 openai
 ollama
+python3-nmap
