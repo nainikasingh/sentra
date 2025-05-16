@@ -2,47 +2,49 @@
 
 echo "[+] Setting up Sentra directory structure..."
 
+# Define directories
+DIRS=("sentra/core/engine" "sentra/plugins" "sentra/config" "tests")
+
 # Create directories
-mkdir -p sentra/core/engine
-mkdir -p sentra/plugins
-mkdir -p sentra/config
-mkdir -p tests
+for dir in "${DIRS[@]}"; do
+    mkdir -p "$dir" || { echo "Failed to create directory $dir"; exit 1; }
+done
 
-# Core files
-touch sentra/cli.py
-touch sentra/__main__.py
-touch sentra/core/scan.py
-touch sentra/core/analyze.py
-touch sentra/core/report.py
-touch sentra/core/__init__.py
-touch sentra/core/engine/__init__.py
-touch sentra/core/engine/scanner_engine.py
-touch sentra/core/engine/nmap_engine.py
+# Define files
+FILES=(
+    "sentra/cli.py"
+    "sentra/__main__.py"
+    "sentra/core/scan.py"
+    "sentra/core/analyze.py"
+    "sentra/core/report.py"
+    "sentra/core/__init__.py"
+    "sentra/core/engine/__init__.py"
+    "sentra/core/engine/scanner_engine.py"
+    "sentra/core/engine/nmap_engine.py"
+    "sentra/config/settings.py"
+    "sentra/plugins/__init__.py"
+    "tests/test_scan.py"
+    "tests/test_analyze.py"
+    "tests/test_report.py"
+    "setup.py"
+    "requirements.txt"
+)
 
-# Config
-touch sentra/config/settings.py
-
-# Plugins
-touch sentra/plugins/__init__.py
-
-# Tests
-touch tests/test_scan.py
-touch tests/test_analyze.py
-touch tests/test_report.py
-
-# Root-level Python package files
-touch setup.py
-touch requirements.txt
+# Create files if they don't exist
+for file in "${FILES[@]}"; do
+    [ ! -f "$file" ] && touch "$file"
+done
 
 # .gitignore (append if missing)
-if ! grep -q "__pycache__/" .gitignore 2>/dev/null; then
-  cat <<EOF >> .gitignore
-__pycache__/
-*.pyc
-.env
-*.log
-EOF
-fi
+GITIGNORE_ENTRIES=("__pycache__/" "*.pyc" ".env" "*.log")
+for entry in "${GITIGNORE_ENTRIES[@]}"; do
+    grep -qxF "$entry" .gitignore || echo "$entry" >> .gitignore
+done
 
-echo "[+] Structure created. Here's what we have now:"
-tree sentra/
+# Check for tree command
+if command -v tree &>/dev/null; then
+    echo "[+] Structure created. Here's what we have now:"
+    tree sentra/
+else
+    echo "[+] Structure created. Install 'tree' to view the directory structure."
+fi
